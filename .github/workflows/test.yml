@@ -3,8 +3,8 @@ name: Deploy to Netlify
 on:
   push:
     branches:
-      - main # Specifikace větve, kterou chceme nasazovat
-
+      - main
+      - master
 jobs:
   deploy:
     runs-on: ubuntu-latest
