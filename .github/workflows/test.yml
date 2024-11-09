@@ -19,10 +19,27 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20.18.0" # Opravený formát
+          node-version: "20.18.0"
 
       # Instalace závislostí pomocí npm
       - name: Install dependencies
         run: npm install
+
+      # Instalace Fly.io CLI (flyctl)
+      - name: Install Fly.io CLI
+        run: |
+          curl -L https://fly.io/install.sh | sh
+          export PATH=$HOME/.fly/bin:$PATH
+        shell: bash
+
+      # Přihlášení do Fly.io
+      - name: Fly.io Auth
         env:
-          flyio: ${{secrets.flyio}}
+          FLY_API_TOKEN: ${{ secrets.flyio }}
+        run: flyctl auth login --access-token $FLY_API_TOKEN
+
+      # Nasazení na Fly.io
+      - name: Deploy to Fly.io
+        env:
+          FLY_API_TOKEN: ${{ secrets.flyio }}
+        run: flyctl deploy
