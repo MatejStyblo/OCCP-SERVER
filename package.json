@@ -5,7 +5,9 @@
   "main": "api/server.js",
   "bin": "api/server.js",
   "scripts": {
-    "start": "node api/server.js"
+    "start": "node api/server.js",
+    "build": "react-scripts build"
+
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
