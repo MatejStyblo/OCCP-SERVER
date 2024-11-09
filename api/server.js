@@ -12,7 +12,12 @@ const { saveChargingData } = require("./db/columOfCharging");
 const app = express();
 const port = 5000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://10.0.0.24:3000", // nebo '*' pro povolení všem
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 connectToDatabase();

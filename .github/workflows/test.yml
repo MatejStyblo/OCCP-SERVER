@@ -1,0 +1,28 @@
+name: OCCP-server
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout kódu
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Nastavení Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20.18.0" # Opravený formát
+
+      # Instalace závislostí pomocí npm
+      - name: Install dependencies
+        run: npm install
+        env:
+          flyio: ${{secrets.flyio}}
