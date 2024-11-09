@@ -1,10 +1,9 @@
-name: OCCP-server
+name: Deploy to Netlify
 
 on:
   push:
     branches:
-      - master
-      - main
+      - main # Zde můžeš specifikovat, kterou větev nasazuješ, např. main nebo master.
 
 jobs:
   deploy:
@@ -15,31 +14,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Nastavení Node.js
+      # Instalace Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20.18.0"
+          node-version: "20" # Vyber verzi Node.js podle projektu
 
-      # Instalace závislostí pomocí npm
+      # Instalace závislostí
       - name: Install dependencies
         run: npm install
 
-      # Instalace Fly.io CLI (flyctl)
-      - name: Install Fly.io CLI
-        run: |
-          curl -L https://fly.io/install.sh | sh
-          export PATH=$HOME/.fly/bin:$PATH
-        shell: bash
+      # Build aplikace
+      - name: Build application
+        run: npm run build
 
-      # Přihlášení do Fly.io
-      - name: Fly.io Auth
+      # Deploy na Netlify
+      - name: Deploy to Netlify
         env:
-          FLY_API_TOKEN: ${{ secrets.flyio }}
-        run: flyctl auth login --access-token $FLY_API_TOKEN
-
-      # Nasazení na Fly.io
-      - name: Deploy to Fly.io
-        env:
-          FLY_API_TOKEN: ${{ secrets.flyio }}
-        run: flyctl deploy
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: npx netlify deploy --prod --dir=build
