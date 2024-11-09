@@ -10,25 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout kódu
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Instalace Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: "20" # Vyber verzi Node.js podle projektu
 
-      # Instalace závislostí
       - name: Install dependencies
         run: npm install
 
-      # Build aplikace
       - name: Build application
         run: npm run build
 
-      # Deploy na Netlify
       - name: Deploy to Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
