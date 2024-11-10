@@ -13,7 +13,7 @@ const app = express();
 const port = 5000;
 app.use(
   cors({
-    origin: "http://localhost:3000", // Update with your frontend's URL
+    origin: "*", // This will allow requests from any origin
   })
 );
 app.use(express.json());
