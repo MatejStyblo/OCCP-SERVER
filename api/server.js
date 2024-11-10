@@ -11,7 +11,11 @@ const {
 const { saveChargingData } = require("./db/columOfCharging");
 const app = express();
 const port = 5000;
-
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Update with your frontend's URL
+  })
+);
 app.use(express.json());
 
 connectToDatabase();
