@@ -15,26 +15,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Nastavení Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "20" # Použij verzi Node.js podle potřeby
+      # Přihlášení do Railway
+      - name: Railway Login
+        env:
+          RAILWAY_API_KEY: ${{ secrets.RAILWAY_API_TOKEN }}
+        run: railway login
 
       # Instalace závislostí
       - name: Install dependencies
         run: npm install
 
-      # Instalace Railway CLI
-      - name: Install Railway CLI
-        run: npm install -g railway
+      # Build aplikace
+      - name: Build application
+        run: npm run build
 
-      # Přihlášení do Railway pomocí API tokenu
-      - name: Railway login
-        env:
-          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-        run: railway login --api-key $RAILWAY_API_TOKEN
-
-      # Nasazení aplikace na Railway
+      # Deploy na Railway
       - name: Deploy to Railway
-        run: railway up --env production
+        run: railway up
