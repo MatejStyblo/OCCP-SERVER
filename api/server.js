@@ -12,12 +12,6 @@ const { saveChargingData } = require("./db/columOfCharging");
 const app = express();
 const port = 5000;
 
-app.use(
-  cors({
-    origin: "https://occp-server-production.up.railway.app",
-    credentials: true,
-  })
-);
 app.use(express.json());
 
 connectToDatabase();
