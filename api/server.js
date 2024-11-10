@@ -14,7 +14,7 @@ const port = 5000;
 
 app.use(
   cors({
-    origin: "http://10.0.0.24:3000", // nebo '*' pro povolení všem
+    origin: "https://occp-server-production.up.railway.app",
     credentials: true,
   })
 );
