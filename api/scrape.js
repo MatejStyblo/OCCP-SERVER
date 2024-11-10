@@ -13,8 +13,11 @@ const createUrlWithTodayDate = () => {
 };
 
 const scrapeData = async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+    
+ try {
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });    const page = await browser.newPage();
 
     const url = createUrlWithTodayDate();
     await page.goto(url, { timeout: 60000, waitUntil: 'domcontentloaded' });
