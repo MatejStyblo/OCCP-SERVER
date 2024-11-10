@@ -23,7 +23,7 @@ jobs:
 
       # Instalace závislostí
       - name: Install dependencies
-        run: npm install
+        run: npm install --omit=dev
 
       # Build aplikace
       - name: Build application
