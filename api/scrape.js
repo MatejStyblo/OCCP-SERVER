@@ -20,7 +20,7 @@ const scrapeData = async () => {
   const page = await browser.newPage();
 
   const url = createUrlWithTodayDate();
-  await page.goto(url, { timeout: 60000, waitUntil: "domcontentloaded" });
+  await page.goto(url, { timeout: 60000, waitUntil: "networkidle0" });
 
   const hoursOfDay = await page.evaluate(() => {
     const rows = document.querySelectorAll(
