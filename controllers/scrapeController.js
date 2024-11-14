@@ -57,4 +57,4 @@ const scrapeData = async () => {
   return combinedResults;
 };
 
-module.exports = scrapeData;
+module.exports = { scrapeData };
